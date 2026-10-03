@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>IRIS AI</title>
+
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+    default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;
+    script-src * 'unsafe-inline' 'unsafe-eval' data: blob: https://cdn.jsdelivr.net https://js.puter.com;
+    worker-src * 'unsafe-inline' 'unsafe-eval' data: blob:;
+    connect-src * data: blob: 'unsafe-inline';
+    img-src * data: blob: file: 'unsafe-inline';
+    media-src * data: blob: file: 'unsafe-inline';
+    style-src * 'unsafe-inline';
+  "
+    />
+  </head>
+
+  <body class="bg-black text-white overflow-hidden">
+    <div id="root"></div>
+    <script>
+      if (typeof window !== 'undefined' && !window.electron) {
+        window.electron = {
+          process: { platform: 'web' },
+          ipcRenderer: {
+            invoke: async (channel, ...args) => {
+              console.log(`[Mock IPC Invoke] ${channel}`, args)
+              return { success: true }
+            },
+            send: (channel, ...args) => {
+              console.log(`[Mock IPC Send] ${channel}`, args)
+            },
+            on: (channel, listener) => {
+              console.log(`[Mock IPC On] ${channel}`)
+              return () => {}
+            },
+            removeAllListeners: (channel) => {
+              console.log(`[Mock IPC Remove All] ${channel}`)
+            }
+          }
+        }
+      }
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

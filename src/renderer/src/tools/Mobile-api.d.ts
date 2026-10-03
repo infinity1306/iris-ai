@@ -1,0 +1,9 @@
+export declare const openMobileApp: (packageName: string) => Promise<string>;
+export declare const closeMobileApp: (packageName: string) => Promise<string>;
+export declare const tapMobileScreen: (xPercent: number, yPercent: number) => Promise<string>;
+export declare const swipeMobileScreen: (direction: string) => Promise<string>;
+export declare const fetchMobileInfo: () => Promise<any>;
+export declare const fetchMobileNotifications: () => Promise<string>;
+export declare const pushFileToMobile: (sourcePath: string, destPath?: string) => Promise<string>;
+export declare const pullFileFromMobile: (sourcePath: string, destPath?: string) => Promise<string>;
+export declare const toggleMobileHardware: (setting: string, state: boolean) => Promise<string>;
